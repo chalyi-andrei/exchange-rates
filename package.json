@@ -1,0 +1,43 @@
+{
+  "name": "exhange-rates",
+  "version": "1.0.0",
+  "description": "MERN stack",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chalyi-andrei/exchange-rates.git"
+  },
+  "author": "Andrei Chaly",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chalyi-andrei/exchange-rates/issues"
+  },
+  "homepage": "https://github.com/chalyi-andrei/exchange-rates#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.1",
+    "express": "^4.17.1",
+    "express-validator": "^6.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "materialize-css": "^1.0.0-rc.2",
+    "mongoose": "^5.9.9"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.1",
+    "nodemon": "^2.0.3",
+    "prettier": "2.0.4"
+  }
+}
