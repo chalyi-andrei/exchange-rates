@@ -1,1 +1,3 @@
-@import 'materialize-css/dist/css/materialize.min.css';
+.mr15 {
+  margin-right: 15px !important;
+}

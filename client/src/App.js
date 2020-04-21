@@ -1,29 +1,40 @@
 import React from 'react';
-import M from 'materialize-css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function App() {
+import useRoutes from './Routes';
+
+const Nav = () => (
+  <nav>
+    <div class="nav-wrapper teal lighten-1">
+      <div className="container">
+        <Link to="/" class="brand-logo">
+          ExRate
+        </Link>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li>
+            <Link to="/auth">Sign in</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+);
+
+const App = () => {
+  const routes = useRoutes(false);
+
   return (
     <div>
-      <nav>
-        <div class="nav-wrapper">
-          <a href="#" class="brand-logo">
-            ExRate
-          </a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li>
-              <a href="sass.html">Sass</a>
-            </li>
-            <li>
-              <a href="badges.html">Components</a>
-            </li>
-            <li>
-              <a href="collapsible.html">JavaScript</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+      <Router>
+        <Nav />
+        {routes}
+      </Router>
     </div>
   );
-}
+};
 
 export default App;

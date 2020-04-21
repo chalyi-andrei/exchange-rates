@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const config = require('../config/default.json');
+const config = require('config');
 const User = require('../models/User');
 
 const router = Router();
@@ -22,7 +22,6 @@ router.post(
           message: t.auth.incorrectData,
         });
       }
-
       const { email, password } = req.body;
 
       const candidate = await User.findOne({ email });
@@ -31,13 +30,14 @@ router.post(
         return res.status(400).json({ message: t.auth.userExist });
       }
 
-      const hashedPassword = bcrypt.hash(password, 12);
+      const hashedPassword = await bcrypt.hash(password, 12);
       const user = new User({ email, password: hashedPassword });
 
       await user.save();
 
       res.status(201).json({ message: t.auth.created });
     } catch (e) {
+      console.log('error register', e);
       res.status(500).json({ message: t.errors.server });
     }
   }
@@ -46,10 +46,7 @@ router.post(
 // api/auth/login
 router.post(
   '/login',
-  [
-    check('email', t.auth.incorrectEmail).normalizeEmail().isEmail(),
-    check('password', t.auth.passwordLength).isLength({ min: 6 }),
-  ],
+  [check('email', t.auth.incorrectEmail).isEmail(), check('password', t.auth.passwordLength).isLength({ min: 6 })],
   async (req, res) => {
     try {
       const errors = validationResult(req);
@@ -62,27 +59,29 @@ router.post(
       }
 
       const { email, password } = req.body;
-      const user = await User.findOne({ email });
+
+      const mConfig = { email };
+      const user = await User.findOne(mConfig);
       if (!user) {
         return res.status(400).json({ message: t.auth.noUser });
       }
 
-      const isMatch = bcrypt.compare(password, user.password);
+      const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
         return res.status(400).json({ message: t.auth.incorrectEmailOrPassword });
       }
-        const token = jwt.sign(
-          { userId: user.id,},
-          config.get('jwtSecret'),
-          {expiresIn: '1h'}
-        );
-        res.json({token, userId: user.id});
-      }
+      const token = jwt.sign({ userId: user.id }, config.get('jwtSecret'), { expiresIn: '1h' });
+      res.json({ token, userId: user.id });
     } catch (e) {
+      console.log('login error', e);
       res.status(500).json({ message: t.errors.server });
     }
   }
 );
+
+router.get('/login', async (req, res) => {
+  res.send('Yo');
+});
 
 module.exports = router;
