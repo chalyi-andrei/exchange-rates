@@ -22,10 +22,9 @@ router.post(
           message: t.auth.incorrectData,
         });
       }
+
       const { email, password } = req.body;
-
       const candidate = await User.findOne({ email });
-
       if (candidate) {
         return res.status(400).json({ message: t.auth.userExist });
       }
@@ -34,7 +33,6 @@ router.post(
       const user = new User({ email, password: hashedPassword });
 
       await user.save();
-
       res.status(201).json({ message: t.auth.created });
     } catch (e) {
       console.log('error register', e);
@@ -59,9 +57,7 @@ router.post(
       }
 
       const { email, password } = req.body;
-
-      const mConfig = { email };
-      const user = await User.findOne(mConfig);
+      const user = await User.findOne({ email });
       if (!user) {
         return res.status(400).json({ message: t.auth.noUser });
       }
@@ -72,7 +68,7 @@ router.post(
         return res.status(400).json({ message: t.auth.incorrectEmailOrPassword });
       }
       const token = jwt.sign({ userId: user.id }, config.get('jwtSecret'), { expiresIn: '1h' });
-      res.json({ token, userId: user.id });
+      res.json({ token, userId: user.id, email });
     } catch (e) {
       console.log('login error', e);
       res.status(500).json({ message: t.errors.server });

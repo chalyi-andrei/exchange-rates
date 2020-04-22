@@ -3,8 +3,10 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import useRoutes from './Routes';
+import { useAuth } from './hooks/auth.hook';
+import { AuthContext } from './context/AuthContext';
 
-const Nav = () => (
+const Nav = ({ isAuthenticated = false }) => (
   <nav>
     <div class="nav-wrapper teal lighten-1">
       <div className="container">
@@ -12,9 +14,7 @@ const Nav = () => (
           ExRate
         </Link>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li>
-            <Link to="/auth">Sign in</Link>
-          </li>
+          <li>{isAuthenticated ? <Link to="/settings">Settings</Link> : <Link to="/auth">Sign in</Link>}</li>
           <li>
             <Link to="/about">About</Link>
           </li>
@@ -25,15 +25,17 @@ const Nav = () => (
 );
 
 const App = () => {
-  const routes = useRoutes(false);
+  const { email, token, userId, login, logout } = useAuth();
+  const isAuthenticated = !!token;
+  const routes = useRoutes(isAuthenticated);
 
   return (
-    <div>
+    <AuthContext.Provider value={{ email, token, userId, login, logout, isAuthenticated }}>
       <Router>
-        <Nav />
+        <Nav isAuthenticated={isAuthenticated} />
         {routes}
       </Router>
-    </div>
+    </AuthContext.Provider>
   );
 };
 
