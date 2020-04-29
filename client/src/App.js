@@ -24,6 +24,19 @@ const Nav = ({ isAuthenticated = false }) => (
   </nav>
 );
 
+const Fotter = ({ isAuthenticated = false }) => (
+  <footer class="page-footer footer-custom  teal lighten-1">
+    <div class="footer-copyright">
+      <div class="container">
+        2020 ExRate
+        <Link class="grey-text text-lighten-4 right" to="/about">
+          About
+        </Link>
+      </div>
+    </div>
+  </footer>
+);
+
 const App = () => {
   const { email, token, userId, login, logout } = useAuth();
   const isAuthenticated = !!token;
@@ -33,7 +46,10 @@ const App = () => {
     <AuthContext.Provider value={{ email, token, userId, login, logout, isAuthenticated }}>
       <Router>
         <Nav isAuthenticated={isAuthenticated} />
-        {routes}
+        <div className="main-container">
+          {routes}
+          <Fotter />
+        </div>
       </Router>
     </AuthContext.Provider>
   );

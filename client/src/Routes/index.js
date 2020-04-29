@@ -19,7 +19,6 @@ const useRoutes = (isAuthenticated) => {
         <Route path="/settings" exact>
           <SettingsPage />
         </Route>
-        <Redirect to="/" />
       </Switch>
     );
   }

@@ -26,7 +26,7 @@ const Auth = () => {
   const signInHandler = async () => {
     try {
       const resp = await apiCall('/api/auth/login', 'post', { ...form });
-      console.log('resp', resp);
+      console.log('signInHandler', resp);
       authData.login(resp.token, resp.userId, resp.email);
     } catch (e) {
       console.log('error', e);

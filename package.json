@@ -21,12 +21,16 @@
   "homepage": "https://github.com/chalyi-andrei/exchange-rates#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cheerio": "^1.0.0-rc.3",
     "config": "^3.3.1",
     "express": "^4.17.1",
     "express-validator": "^6.4.0",
     "jsonwebtoken": "^8.5.1",
     "materialize-css": "^1.0.0-rc.2",
-    "mongoose": "^5.9.10"
+    "moment": "^2.24.0",
+    "mongoose": "^5.9.10",
+    "puppeteer": "^3.0.0",
+    "puppeteer-core": "^3.0.0"
   },
   "devDependencies": {
     "concurrently": "^5.1.0",
