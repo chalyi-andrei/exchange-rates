@@ -17,3 +17,7 @@ input {
   left: 0;
   width: 100%;
 }
+
+.smallTitle {
+  font-size: 32px;
+}
