@@ -21,3 +21,7 @@ input {
 .smallTitle {
   font-size: 32px;
 }
+
+.customBtn {
+  margin-left: 10px;
+}
