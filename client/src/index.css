@@ -25,3 +25,15 @@ input {
 .customBtn {
   margin-left: 10px;
 }
+
+.my-container {
+  margin-bottom: 80px;
+}
+
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.loader {
+  width: 200px;
+}

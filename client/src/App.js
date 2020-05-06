@@ -8,12 +8,12 @@ import { AuthContext } from './context/AuthContext';
 
 const Nav = ({ isAuthenticated = false }) => (
   <nav>
-    <div class="nav-wrapper teal lighten-1">
+    <div className="nav-wrapper teal lighten-1">
       <div className="container">
-        <Link to="/" class="brand-logo">
+        <Link to="/" className="brand-logo">
           ExRate
         </Link>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li>{isAuthenticated ? <Link to="/settings">Settings</Link> : <Link to="/auth">Sign in</Link>}</li>
           <li>
             <Link to="/about">About</Link>
@@ -25,11 +25,11 @@ const Nav = ({ isAuthenticated = false }) => (
 );
 
 const Fotter = ({ isAuthenticated = false }) => (
-  <footer class="page-footer footer-custom  teal lighten-1">
-    <div class="footer-copyright">
-      <div class="container">
+  <footer className="page-footer footer-custom  teal lighten-1">
+    <div className="footer-copyright">
+      <div className="container">
         2020 ExRate
-        <Link class="grey-text text-lighten-4 right" to="/about">
+        <Link className="grey-text text-lighten-4 right" to="/about">
           About
         </Link>
       </div>

@@ -17,7 +17,7 @@ const Auth = () => {
   const signUpHandler = async () => {
     try {
       console.log('form', form);
-      const resp = await apiCall('/api/auth/register', 'post', { ...form });
+      await apiCall('/api/auth/register', 'post', { ...form });
     } catch (e) {
       console.log('error', e);
     }
@@ -38,25 +38,25 @@ const Auth = () => {
   }, []);
 
   return (
-    <div class="container">
-      <div class="row">
-        <div class="col s6 offset-s3">
+    <div className="container">
+      <div className="row">
+        <div className="col s6 offset-s3">
           <h2>Create your account</h2>
-          <div class="card">
-            <div class="card-content white-text">
-              <span class="card-title">Sign in</span>
-              <div class="input-field">
+          <div className="card">
+            <div className="card-content white-text">
+              <span className="card-title">Sign in</span>
+              <div className="input-field">
                 <input onChange={changeHandler} placeholder="email" id="email" name="email" type="text" />
                 <label htmlFor="email">Email</label>
               </div>
-              <div class="input-field">
+              <div className="input-field">
                 <input onChange={changeHandler} placeholder="password" id="password" name="password" type="password" />
                 <label htmlFor="password">Password</label>
-                <span class="helper-text red-text text-darken-2">{error}</span>
+                <span className="helper-text red-text text-darken-2">{error}</span>
               </div>
             </div>
 
-            <div class="card-action right-align">
+            <div className="card-action right-align">
               <button onClick={signInHandler} disabled={loading} className="btn orange mr15 lighten-1">
                 Sign in
               </button>
