@@ -4,7 +4,7 @@ const { USD_TITLE } = require('../constant');
 const URI = {
   USD: {
     khObmenka: 'https://kharkov.obmenka.ua/ru/USD-UAH',
-    money24: 'https://money24.kharkov.ua/usd-uah/',
+    money24: 'https://money24.kharkov.ua/',
   },
 };
 
@@ -43,7 +43,7 @@ const money24Scrape = async () => {
     const money24Page = await browser.newPage();
     await money24Page.goto(URI.USD.money24);
 
-    const money24Data = await money24Page.$$eval('.rate-box_tabs-body.rate-info-holder', (nodes) => {
+    const money24Data = await money24Page.$$eval('.rate-box_tabs-body.rate-info-holder#tabs-1', (nodes) => {
       return nodes.map((node) => {
         const byUsd = node.querySelector('.rate-info-box.rate-buy .rate-number').innerText;
         const sellUsd = node.querySelector('.rate-info-box.rate-sell .rate-number').innerText;
