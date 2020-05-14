@@ -34,11 +34,7 @@ router.get('/obmenka', async (req, res) => {
     data.push(currentRate);
   }
 
-  console.log('latestPlus4Hours', latestPlus4Hours.format('DD MM, mm:mm'));
-  console.log('currentDate', moment().format('DD MM, hh:mm'));
-
   if (latestPlus4Hours.isBefore(currentDate)) {
-    console.log('latestPlus4Hours!!! =)');
     if (!dataFromSite) {
       dataFromSite = await obmenkaScrape();
     }
@@ -71,7 +67,8 @@ router.get('/money24', async (req, res) => {
   let newData = null;
 
   if (latestPlusDay.isBefore(currentDate)) {
-    dataFromSite = await obmenkaScrape();
+    dataFromSite = await money24Scrape();
+
     newData = {
       title: 'USD - UAH',
       buy: dataFromSite.USD.buy,
@@ -79,14 +76,16 @@ router.get('/money24', async (req, res) => {
       date: currentDate.unix(),
     };
 
-    const rate = new Money24Rate(newData);
-    const currentRate = await rate.save();
-    data.push(currentRate);
+    if (dataFromSite.USD.buy !== '0.00' || dataFromSite.USD.sell !== '0.00') {
+      const rate = new Money24Rate(newData);
+      const currentRate = await rate.save();
+      data.push(currentRate);
+    }
   }
 
   if (latestPlus4Hours.isBefore(currentDate)) {
     if (!dataFromSite) {
-      dataFromSite = await obmenkaScrape();
+      dataFromSite = await money24Scrape();
     }
     if (!newData) {
       newData = {
@@ -97,9 +96,11 @@ router.get('/money24', async (req, res) => {
       };
     }
 
-    const rate = new Money48Rate(newData);
-    const currentRateData = await rate.save();
-    data48.push(currentRateData);
+    if (dataFromSite.USD.buy !== '0.00' || dataFromSite.USD.sell !== '0.00') {
+      const rate = new Money48Rate(newData);
+      const currentRateData = await rate.save();
+      data48.push(currentRateData);
+    }
   }
 
   res.status(200).json({ message: 'ok', data: { USD: data, data48h: data48 } });

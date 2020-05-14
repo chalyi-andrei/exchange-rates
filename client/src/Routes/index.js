@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import HomePage from '../pages/Home';
+//import HomePage from '../pages/Home';
 import ProfilePage from '../pages/Profile';
 import SettingsPage from '../pages/Settings';
 import AuthPage from '../pages/Auth';
@@ -26,7 +26,7 @@ const useRoutes = (isAuthenticated) => {
   return (
     <Switch>
       <Route path="/" exact>
-        <HomePage isAuthenticated={true} />
+        <ProfilePage isAuthenticated={isAuthenticated} />
       </Route>
       <Route path="/about" exact>
         <AboutPage />
