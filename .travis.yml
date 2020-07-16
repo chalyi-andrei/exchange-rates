@@ -1,0 +1,6 @@
+language: language
+install: yarn
+script: yarn lint
+branches:
+  only:
+    - master
