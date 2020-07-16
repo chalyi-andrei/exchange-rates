@@ -1,6 +1,6 @@
 language: language
-install: yarn
-script: yarn lint
+install: npm install
+script: npm run lint
 branches:
   only:
     - master
