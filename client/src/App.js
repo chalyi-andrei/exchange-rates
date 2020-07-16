@@ -1,29 +1,58 @@
 import React from 'react';
-import M from 'materialize-css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function App() {
-  return (
-    <div>
-      <nav>
-        <div class="nav-wrapper">
-          <a href="#" class="brand-logo">
-            ExRate
-          </a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li>
-              <a href="sass.html">Sass</a>
-            </li>
-            <li>
-              <a href="badges.html">Components</a>
-            </li>
-            <li>
-              <a href="collapsible.html">JavaScript</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+import useRoutes from './Routes';
+import { useAuth } from './hooks/auth.hook';
+import { AuthContext } from './context/AuthContext';
+
+const Nav = ({ isAuthenticated = false }) => (
+  <nav>
+    <div className="nav-wrapper teal lighten-1">
+      <div className="container">
+        <Link to="/" className="brand-logo">
+          ExRate
+        </Link>
+        <ul id="nav-mobile" className="right hide-on-med-and-down">
+          <li>{isAuthenticated ? <Link to="/settings">Settings</Link> : <Link to="/auth">Sign in</Link>}</li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+        </ul>
+      </div>
     </div>
+  </nav>
+);
+
+const Fotter = ({ isAuthenticated = false }) => (
+  <footer className="page-footer footer-custom  teal lighten-1">
+    <div className="footer-copyright">
+      <div className="container">
+        2020 ExRate
+        <Link className="grey-text text-lighten-4 right" to="/about">
+          About
+        </Link>
+      </div>
+    </div>
+  </footer>
+);
+
+const App = () => {
+  const { email, token, userId, login, logout } = useAuth();
+  const isAuthenticated = !!token;
+  const routes = useRoutes(isAuthenticated);
+
+  return (
+    <AuthContext.Provider value={{ email, token, userId, login, logout, isAuthenticated }}>
+      <Router>
+        <Nav isAuthenticated={isAuthenticated} />
+        <div className="main-container">
+          {routes}
+          <Fotter />
+        </div>
+      </Router>
+    </AuthContext.Provider>
   );
-}
+};
 
 export default App;

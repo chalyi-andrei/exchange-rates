@@ -7,7 +7,7 @@ const translations = {
     created: 'User has created successfully',
     incorrectEmail: 'Incorrect email',
     passwordLength: 'The minimal password length is 6',
-    incorrectData: 'Incorrect registration data',
+    incorrectData: 'Incorrect email or password',
     incorrectLoginData: 'Incorrect login data',
     incorrectEmailOrPassword: 'Incorrect email or password',
     noUser: "User doesn't exist",

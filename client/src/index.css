@@ -1,1 +1,39 @@
-@import 'materialize-css/dist/css/materialize.min.css';
+.mr15 {
+  margin-right: 15px !important;
+}
+input {
+  color: #424242;
+}
+
+.main-container {
+  min-height: calc(100vh - 100px);
+  position: relative;
+  padding-bottom: 100px;
+}
+
+.footer-custom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.smallTitle {
+  font-size: 32px;
+}
+
+.customBtn {
+  margin-left: 10px;
+}
+
+.my-container {
+  margin-bottom: 80px;
+}
+
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.loader {
+  width: 200px;
+}
